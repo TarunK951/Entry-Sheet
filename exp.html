@@ -10,29 +10,33 @@
     <div class="main">
       <div class="head">
         <h2>Data Entry Sheet</h2>
+        <button onclick="dataEnter()" class="dataBtn">Enter Data</button>
       </div>
 
-      <div>
-        <form>
-          <div>
-            <label for="fName">First Name</label> <br />
-            <input type="text" id="fName" />
+      <div class="dataEntry" id="dataEntry">
+        <div class="dataEntryPop" id="dataEntryPop">
+          <span class="close" onclick="closeData()">&times;</span>
+          <form>
+            <div>
+              <label for="fName">First Name</label> <br />
+              <input type="text" id="fName" />
+            </div>
+            <div>
+              <label for="secondName">Second Name</label> <br />
+              <input type="text" id="secondName" />
+            </div>
+            <div>
+              <label for="rollNo">Roll No</label> <br />
+              <input type="text" id="rollNo" />
+            </div>
+            <div>
+              <label for="marks">Marks</label><br />
+              <input type="text" id="marks" />
+            </div>
+          </form>
+          <div class="enterBtn">
+            <button onclick="enter()">Enter</button>
           </div>
-          <div>
-            <label for="secondName">Second Name</label> <br />
-            <input type="text" id="secondName" />
-          </div>
-          <div>
-            <label for="rollNo">Roll No</label> <br />
-            <input type="text" id="rollNo" />
-          </div>
-          <div>
-            <label for="marks">Marks</label><br />
-            <input type="text" id="marks" />
-          </div>
-        </form>
-        <div class="enterBtn">
-          <button onclick="enter()">Enter</button>
         </div>
       </div>
 
