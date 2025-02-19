@@ -12,7 +12,22 @@
         <h2>Data Entry Sheet</h2>
         <button onclick="dataEnter()" class="dataBtn">Enter Data</button>
       </div>
-
+      <div class="details">
+        <div class="body">
+          <table class="table" id="table">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Second Name</th>
+                <th>Roll No</th>
+                <th>Marks</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
       <div class="dataEntry" id="dataEntry">
         <div class="dataEntryPop" id="dataEntryPop">
           <span class="close" onclick="closeData()">&times;</span>
@@ -39,20 +54,13 @@
           </div>
         </div>
       </div>
-
-      <div class="body">
-        <table class="table" id="table">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Second Name</th>
-              <th>Roll No</th>
-              <th>Marks</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      <div class="delete" id="delete">
+        <div class="dContent">
+          <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+          <p>Are You Sure</p>
+          <button class="ok" onclick="yes()" id="yes">Yes</button>
+          <button class="no" onclick="no()">No</button>
+        </div>
       </div>
 
       <div class="popup" id="popup">
@@ -63,7 +71,7 @@
           <input type="text" id="editSecondName" placeholder="Second Name" />
           <input type="text" id="editRollNo" placeholder="Roll No" />
           <input type="text" id="editMarks" placeholder="Marks" />
-          <button onclick="saveEdit()">Save</button>
+          <button onclick="saveEdit()" class="saveBtn">Save</button>
         </div>
       </div>
     </div>
