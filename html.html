@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Table with Edit & Delete</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: lightgray;
+      }
+      td p {
+        color: darkred;
+        font-style: italic;
+      }
+      button {
+        margin: 2px;
+        padding: 5px 10px;
+        cursor: pointer;
+        border: none;
+        color: white;
+      }
+      .edit-btn {
+        background-color: orange;
+      }
+      .delete-btn {
+        background-color: red;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        text-align: center;
+        border-radius: 10px;
+      }
+      .close {
+        color: red;
+        float: right;
+        font-size: 28px;
+        cursor: pointer;
+      }
+      .modal input {
+        display: block;
+        margin: 10px auto;
+        padding: 5px;
+        width: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="firstName" placeholder="First Name" />
+    <input type="text" id="secondName" placeholder="Second Name" />
+    <input type="text" id="rollNo" placeholder="Roll No" />
+    <button onclick="addToTable()">Submit</button>
+
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Second Name</th>
+          <th>Roll No</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Modal Popup for Editing -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Edit Row</h2>
+        <input type="text" id="editFirstName" placeholder="First Name" />
+        <input type="text" id="editSecondName" placeholder="Second Name" />
+        <input type="text" id="editRollNo" placeholder="Roll No" />
+        <button onclick="saveEdit()">Save</button>
+      </div>
+    </div>
+
+    <script>
+      let editingRow = null;
+
+      function addToTable() {
+        const firstName = document.getElementById("firstName").value.trim();
+        const secondName = document.getElementById("secondName").value.trim();
+        const rollNo = document.getElementById("rollNo").value.trim();
+
+        const tableBody = document.querySelector("#myTable tbody");
+        const newRow = document.createElement("tr");
+
+        function createCell(value) {
+          const td = document.createElement("td");
+          const p = document.createElement("p");
+          p.textContent = value || ""; // If empty, leave blank
+          td.appendChild(p);
+          return td;
+        }
+
+        newRow.appendChild(createCell(firstName));
+        newRow.appendChild(createCell(secondName));
+        newRow.appendChild(createCell(rollNo));
+
+        // Create action buttons
+        const actionTd = document.createElement("td");
+        const editButton = document.createElement("button");
+        const deleteButton = document.createElement("button");
+
+        editButton.textContent = "Edit";
+        editButton.className = "edit-btn";
+        editButton.onclick = function () {
+          openEditModal(newRow);
+        };
+
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "delete-btn";
+        deleteButton.onclick = function () {
+          tableBody.removeChild(newRow);
+        };
+
+        actionTd.appendChild(editButton);
+        actionTd.appendChild(deleteButton);
+        newRow.appendChild(actionTd);
+
+        tableBody.appendChild(newRow);
+
+        // Clear input fields
+        document.getElementById("firstName").value = "";
+        document.getElementById("secondName").value = "";
+        document.getElementById("rollNo").value = "";
+      }
+
+      function openEditModal(row) {
+        editingRow = row;
+        const cells = row.querySelectorAll("td p");
+
+        document.getElementById("editFirstName").value = cells[0].textContent;
+        document.getElementById("editSecondName").value = cells[1].textContent;
+        document.getElementById("editRollNo").value = cells[2].textContent;
+
+        document.getElementById("editModal").style.display = "block";
+      }
+
+      function saveEdit() {
+        if (!editingRow) return;
+
+        const cells = editingRow.querySelectorAll("td p");
+
+        cells[0].textContent = document.getElementById("editFirstName").value;
+        cells[1].textContent = document.getElementById("editSecondName").value;
+        cells[2].textContent = document.getElementById("editRollNo").value;
+
+        closeModal();
+      }
+
+      function closeModal() {
+        document.getElementById("editModal").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
